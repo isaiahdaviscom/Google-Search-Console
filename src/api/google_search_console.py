@@ -1,1 +1,70 @@
-# Google Search Console API logic
+# Google Search Console API                     # Python Client Library - Service Account Authentication 
+
+# Import built-in modules
+import os                                       # Import the os module for environment variables and file paths
+import json                                     # Import the json module for JSON file operations
+
+# Import third-party libraries
+from dotenv import load_dotenv, find_dotenv     # Import the load_dotenv and find_dotenv functions from the dotenv package
+from google.oauth2 import service_account       # Import the service_account module from the google.oauth2 package
+from googleapiclient.discovery import build     # Import the build function from the googleapiclient.discovery module
+from googleapiclient.errors import HttpError    # Import the HttpError class from the googleapiclient.errors module
+from datetime import datetime, timedelta        # Import the datetime and timedelta classes from the datetime module
+
+# Variables                                     # Definition Hierarchy - 1. Constants, 2. Variables, 3. Functions
+# SCOPES = ''                                   # OAuth 2.0 scopes for the Google Search Console API
+# API_SERVICE_NAME = ''                         # Name of the Google Search Console API service
+# API_VERSION = ''                              # Version of the Google Search Console API
+# service_account_file = ''                     # Path to the service account JSON key file
+# credentials = ''                              # Credentials object for the service API
+# env_path = ''                                 # Path to the .env file
+# env_loaded = False                            # Flag to check if the .env file is loaded
+
+# Set Variables
+SCOPES = ['https://www.googleapis.com/auth/webmasters.readonly']
+API_SERVICE_NAME = 'searchconsole'
+API_VERSION = 'v1'
+API_SECRET_NAME = 'GSC_CLIENT_SECRET'
+env_path = find_dotenv()
+env_loaded = load_dotenv(dotenv_path=env_path)   # Load the .env file
+service_account_file = os.getenv(API_SECRET_NAME)
+service = ''
+credentials = ''
+
+# Functions
+def _initialize ():
+    # service_account_secrets = {}              # JSON object to store the service account secrets
+    # service = ''                              # Service object for the Google Search Console API
+    # response = {}                             # JSON object to store the API response
+    service_account_secrets = getSecretsByName(API_SECRET_NAME)
+    # print(json.dumps(service_account_secrets, indent=4))
+    credentials = service_account.Credentials.from_service_account_info(service_account_secrets)
+    service = build(API_SERVICE_NAME, API_VERSION, credentials=credentials)
+    response = service.sites().list().execute()
+    print(response)
+
+# Function > Support
+def getVariables():
+    return {
+        'SCOPES': SCOPES,
+        'API_SERVICE_NAME': API_SERVICE_NAME,
+        'API_VERSION': API_VERSION,
+        'service_account_file': service_account_file,
+        'credentials': credentials,
+        'env_path': env_path,
+        'env_loaded': env_loaded
+    }
+
+def getSecretsByName(serviceName):
+    # Check if the path is valid
+    if service_account_file and os.path.exists(service_account_file):
+        # Open and read the JSON file
+        with open(service_account_file, 'r') as file:
+            secret_data = json.load(file)
+        
+        # Print the contents of the client_secret.json file
+    else:
+        print("The client_secret.json file path is invalid or does not exist.")
+    return secret_data[serviceName]
+
+_initialize()
