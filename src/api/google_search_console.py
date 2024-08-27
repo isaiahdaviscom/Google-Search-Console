@@ -34,27 +34,34 @@ credentials = ''
 # Functions
 def _initialize ():
     # service_account_secrets = {}              # JSON object to store the service account secrets
+    # site_url = ''                             # URL of the website to query
     # service = ''                              # Service object for the Google Search Console API
     # response = {}                             # JSON object to store the API response
     service_account_secrets = getSecretsByName(API_SECRET_NAME)
+    site_url = service_account_secrets['site_url']
     # print(json.dumps(service_account_secrets, indent=4))
     credentials = service_account.Credentials.from_service_account_info(service_account_secrets)
     service = build(API_SERVICE_NAME, API_VERSION, credentials=credentials)
-    response = service.sites().list().execute()
+    response = service.sites().get(siteUrl=site_url).execute()
     print(response)
 
 # Function > Support
+
+# Get Variables (Environment Variables)
 def getVariables():
     return {
         'SCOPES': SCOPES,
         'API_SERVICE_NAME': API_SERVICE_NAME,
         'API_VERSION': API_VERSION,
-        'service_account_file': service_account_file,
-        'credentials': credentials,
+        'API_SECRET_NAME': API_SECRET_NAME,
         'env_path': env_path,
-        'env_loaded': env_loaded
+        'env_loaded': env_loaded,
+        'service_account_file': service_account_file,
+        'service': service,
+        'credentials': credentials
     }
 
+# Get Secrets by Name (Service Name)
 def getSecretsByName(serviceName):
     # Check if the path is valid
     if service_account_file and os.path.exists(service_account_file):
@@ -67,4 +74,49 @@ def getSecretsByName(serviceName):
         print("The client_secret.json file path is invalid or does not exist.")
     return secret_data[serviceName]
 
+# Get Search Console Data (Search Analytics)
+def get_search_console_data(self, site_url, start_date, end_date, dimensions=['query'], row_limit=5000):
+        request_body = {
+            'startDate': start_date,
+            'endDate': end_date,
+            'dimensions': dimensions,
+            'rowLimit': row_limit
+        }
+        response = self.service.searchanalytics().query(siteUrl=site_url, body=request_body).execute()
+        return response.get('rows', [])
+
+# Format Search Console Data
+def format_search_console_data(data):
+    formatted_data = []
+    for row in data:
+        entry = {
+            'query': row['keys'][0],
+            'clicks': row['clicks'],
+            'impressions': row['impressions'],
+            'ctr': row['ctr'],
+            'position': row['position']
+        }
+        formatted_data.append(entry)
+    return formatted_data
+
 _initialize()
+
+# class GoogleSearchConsole:
+#     def __init__(self):
+#         pass
+
+#     def getVariables(self):
+#         return getVariables()
+
+#     def getSecretsByName(self, serviceName):
+#         return getSecretsByName(serviceName)
+    
+#     def get_search_console_data(self, site_url, start_date, end_date, dimensions=['query'], row_limit=5000):
+#         return get_search_console_data(self, site_url, start_date, end_date, dimensions, row_limit)
+    
+#     @staticmethod
+#     def format_search_console_data(data):
+#         return format_search_console_data(data)
+
+#     def initialize(self):
+#         _initialize()

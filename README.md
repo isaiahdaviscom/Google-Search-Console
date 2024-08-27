@@ -17,6 +17,7 @@ The `src` folder contains the main application code.
 
 - **[🡵](https://github.com/isaiahdaviscom/SEO-Insight/blob/main/src/api/google_search_console.py)`/api`**: Contains modules for interacting with external APIs.
   - **[🡵](https://github.com/isaiahdaviscom/SEO-Insight/blob/main/src/api/google_search_console.py)`google_search_console.py`**: Contains the logic for interacting with the Google Search Console API.
+    - ✅ Status: Completed
   - **[🡵](https://github.com/isaiahdaviscom/SEO-Insight/blob/main/src/api/google_search_console.py)`siteimprove.py`**: Contains the logic for interacting with the Siteimprove API.
   
 - **[🡵](https://github.com/isaiahdaviscom/SEO-Insight/blob/main/src/api/google_search_console.py)`/config`**: Holds configuration files for the application.
