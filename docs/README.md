@@ -1,68 +1,41 @@
-# Project documentation
-- [Project documentation](#project-documentation)
-  - [Folder and File Descriptions](#folder-and-file-descriptions)
-    - [`/src`](#src)
-    - [`/tests`](#tests)
-    - [`/env`](#env)
-    - [`/scripts`](#scripts)
-    - [`/docs`](#docs)
-    - [Root-Level Files](#root-level-files)
+# Setup guide for development and production environments
+
+This project interacts with the Google Search Console API to retrieve and process site data. The project is structured as a Python package and includes utilities for authenticating with the API, retrieving data, and formatting results.
+
+- [Setup guide for development and production environments](#setup-guide-for-development-and-production-environments)
+  - [Prerequisites](#prerequisites)
+  - [Project Setup](#project-setup)
   - [Folder Structure](#folder-structure)
 
-## Folder and File Descriptions
+## Prerequisites
 
-### [`/src`](www.google.com)
+- Python 3.7 or higher
+- Access to [Google Cloud Console](https://console.cloud.google.com/) to create a service account
+- Access to [Google Search Console](https://search.google.com/search-console/) with verified site ownership
 
-The `src` folder contains the main application code.
+## Project Setup
 
-- **[`/api`](www.google.com)**: Contains modules for interacting with external APIs.
-  - **`google_search_console.py`**: Contains the logic for interacting with the Google Search Console API.
-  - **`siteimprove.py`**: Contains the logic for interacting with the Siteimprove API.
+  1. **Clone the Repository:**
+
+```cmd
+git clone https://github.com/your-username/google-search-console-python.git
+```
+
+```cmd
+cd google-search-console-python
+```
+
+2. **Create a Virtual Environment:**
   
-- **[`/config`](www.google.com)**: Holds configuration files for the application.
-  - **`settings.py`**: General configuration settings for the application.
-  - **`secrets.py`**: Handles the loading and management of secrets, potentially using tools like `keyring`.
-  
-- **[`/utils`](www.google.com)**: Contains utility functions and helper modules.
-  - **`helpers.py`**: Contains reusable utility functions that can be used across the application.
+  **On Windows:**
 
-- **`main.py`**: The main entry point for the application, where the main logic is executed.
+  ```bash
+  python -m venv .venv
+  ```
 
-### [`/tests`](www.google.com)
-
-This directory contains all unit tests for the application, ensuring that the code works as expected.
-
-- **`test_google_search_console.py`**: Unit tests for the logic interacting with the Google Search Console API.
-- **`test_siteimprove.py`**: Unit tests for the logic interacting with the Siteimprove API.
-- **`test_helpers.py`**: Unit tests for the utility functions defined in `helpers.py`.
-
-### [`/env`](www.google.com)
-
-The `env` directory holds environment-specific configuration files.
-
-- **`.env.development`**: Environment variables specific to the development environment, such as API keys and debug settings.
-- **`.env.production`**: Environment variables specific to the production environment, ensuring a secure and stable setup.
-
-### [`/scripts`](www.google.com)
-
-Contains utility scripts used for various tasks, such as managing secrets or running the application.
-
-- **`set_secrets.py`**: Script to securely store secrets using tools like `keyring`.
-- **`manage.py`**: A general-purpose management script that can be used for tasks like setting up the environment, running the server, or deploying the application.
-
-### [`/docs`](www.google.com)
-
-This directory holds all project documentation.
-
-- **`README.md`**: The main project documentation, typically providing an overview, setup instructions, and usage guidelines.
-- **`setup_guide.md`**: Detailed instructions on setting up the development and production environments, including configuring the application and deploying it.
-
-### Root-Level Files
-
-- **`.gitignore`**: Specifies files and directories that should be ignored by version control, such as environment files and compiled Python files.
-- **`requirements.txt`**: Lists the Python dependencies required for the project, used by `pip` to install the necessary packages.
-- **`setup.py`**: A setup script for packaging and distributing the application, typically used if you plan to make the project installable as a package.
-- **`README.md`**: The primary documentation for the project, providing an overview, setup instructions, and other key information.
+  ```bash
+  python -m venv .venv
+  ```
 
 ## Folder Structure
 

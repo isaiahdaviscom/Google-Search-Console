@@ -12,7 +12,7 @@ from googleapiclient.errors import HttpError    # Import the HttpError class fro
 from datetime import datetime, timedelta        # Import the datetime and timedelta classes from the datetime module
 
 # Variables                                     # Definition Hierarchy - 1. Constants, 2. Variables, 3. Functions
-# SCOPES = ''                                   # OAuth 2.0 scopes for the Google Search Console API
+# SCOPES = ''                                   # OAuPth 2.0 scopes for the Google Search Console API
 # API_SERVICE_NAME = ''                         # Name of the Google Search Console API service
 # API_VERSION = ''                              # Version of the Google Search Console API
 # service_account_file = ''                     # Path to the service account JSON key file
@@ -26,7 +26,7 @@ API_SERVICE_NAME = 'searchconsole'
 API_VERSION = 'v1'
 API_SECRET_NAME = 'GSC_CLIENT_SECRET'
 env_path = find_dotenv()
-env_loaded = load_dotenv(dotenv_path=env_path)   # Load the .env file
+env_loaded = load_dotenv(dotenv_path=env_path)  # Load the .env file
 service_account_file = os.getenv(API_SECRET_NAME)
 service = ''
 credentials = ''
